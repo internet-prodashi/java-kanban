@@ -4,29 +4,34 @@ import java.util.Objects;
 
 public class Epic extends Task {
 
-    private List<Integer> subtaskId;
+    private List<Integer> subtaskIdList;
 
     public Epic(String title, String description) {
         super(title, description);
-        this.subtaskId = new ArrayList<>();
+        this.subtaskIdList = new ArrayList<>();
+    }
+
+    public Epic(String title, String description, Status status) {
+        super(title, description, status);
+        this.subtaskIdList = new ArrayList<>();
     }
 
     public Epic(int id, String title, String description) {
         super(id, title, description);
-        this.subtaskId = new ArrayList<>();
+        this.subtaskIdList = new ArrayList<>();
     }
 
-    public Epic(int id, String title, String description, Status status, List<Integer> subtaskId) {
+    public Epic(int id, String title, String description, Status status, List<Integer> subtaskIdList) {
         super(id, title, description, status);
-        this.subtaskId = subtaskId;
+        this.subtaskIdList = subtaskIdList;
     }
 
-    public List<Integer> getSubtaskId() {
-        return subtaskId;
+    public List<Integer> getSubtaskIdList() {
+        return subtaskIdList;
     }
 
-    public void setSubtaskId(List<Integer> subtaskId) {
-        this.subtaskId = subtaskId;
+    public void setSubtaskIdList(List<Integer> subtaskIdList) {
+        this.subtaskIdList = subtaskIdList;
     }
 
     @Override
@@ -34,12 +39,12 @@ public class Epic extends Task {
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
         Epic epic = (Epic) o;
-        return Objects.equals(getSubtaskId(), epic.getSubtaskId());
+        return Objects.equals(getSubtaskIdList(), epic.getSubtaskIdList());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), getSubtaskId());
+        return Objects.hash(super.hashCode(), getSubtaskIdList());
     }
 
     @Override
@@ -49,7 +54,7 @@ public class Epic extends Task {
                 ", title='" + super.getTitle() + '\'' +
                 ", description='" + super.getDescription() + '\'' +
                 ", status=" + super.getStatus() +
-                ", subtaskId=" + subtaskId +
+                ", subtaskIdList=" + subtaskIdList +
                 '}';
     }
 

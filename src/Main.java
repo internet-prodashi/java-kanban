@@ -17,14 +17,12 @@ public class Main {
         System.out.println("=".repeat(7) + "1" + "=".repeat(7));
 
         // Метод для задач. Получение списка всех задач
-        System.out.println(manager.printTask());
+        System.out.println(manager.getAllTasks());
 
         System.out.println("=".repeat(7) + "2" + "=".repeat(7));
 
         // Метод для задач. Получение по идентификатору
         System.out.println(manager.getTaskByID(2));
-        System.out.println(manager.getTaskByID(0));
-        System.out.println(manager.getTaskByID(15));
 
         System.out.println("=".repeat(7) + "3" + "=".repeat(7));
 
@@ -32,7 +30,7 @@ public class Main {
         manager.deleteTaskByID(2);
         manager.deleteTaskByID(15);
         manager.deleteTaskByID(0);
-        System.out.println(manager.printTask());
+        System.out.println(manager.getAllTasks());
 
         System.out.println("=".repeat(7) + "4" + "=".repeat(7));
 
@@ -41,13 +39,13 @@ public class Main {
         manager.updateTaskByID(task4);
         Task task5 = new Task(15, "Задача 15 новый", "Подробное описание задачи 15 новый", Status.IN_PROGRESS);
         manager.updateTaskByID(task5);
-        System.out.println(manager.printTask());
+        System.out.println(manager.getAllTasks());
 
         System.out.println("=".repeat(7) + "5" + "=".repeat(7));
 
         // Метод для задач. Удаление всех задач.
         manager.deleteAllTask();
-        System.out.println(manager.printTask());
+        System.out.println(manager.getAllTasks());
 
         // Метод для эпиков. Создание. Сам объект должен передаваться в качестве параметра.
         Epic epic1 = new Epic("Заголовок эпика 1", "Подробное описание эпика 1");
@@ -58,7 +56,7 @@ public class Main {
         System.out.println("=".repeat(7) + "6" + "=".repeat(7));
 
         // Метод для эпиков. Получение списка всех эпиков
-        System.out.println(manager.printEpic());
+        System.out.println(manager.getAllEpics());
 
         System.out.println("=".repeat(7) + "7" + "=".repeat(7));
 
@@ -73,7 +71,7 @@ public class Main {
         manager.updateEpicByID(epic3);
         Epic epic4 = new Epic(15, "Заголовок эпика 15 новый", "Подробное описание эпика 15 новый");
         manager.updateEpicByID(epic4);
-        System.out.println(manager.printEpic());
+        System.out.println(manager.getAllEpics());
 
         // Метод для подзадач. Создание. Сам объект должен передаваться в качестве параметра.
         Subtask subtask1 = new Subtask("Заголовок подзадачи 1 эпика 2", "Подробное описание подзадачи 1 эпика 2", 5);
@@ -86,8 +84,8 @@ public class Main {
         System.out.println("=".repeat(7) + "9" + "=".repeat(7));
 
         // Метод для подзадач. Получение списка всех подзадач
-        System.out.println(manager.printSubtask());
-        System.out.println(manager.printEpic());
+        System.out.println(manager.getAllSubtasks());
+        System.out.println(manager.getAllEpics());
 
         System.out.println("=".repeat(7) + "10" + "=".repeat(7));
 
@@ -100,41 +98,41 @@ public class Main {
         // Метод для подзадач. Обновление. Новая версия объекта с верным идентификатором передаётся в виде параметра.
         Subtask subtask4 = new Subtask(7, "Заголовок подзадачи 1 эпика 2 новая", "Подробное описание подзадачи 1 эпика 2 новая", Status.IN_PROGRESS, 5);
         manager.updateSubtaskByID(subtask4);
-        System.out.println(manager.printSubtask());
-        System.out.println(manager.printEpic());
+        System.out.println(manager.getAllSubtasks());
+        System.out.println(manager.getAllEpics());
 
         System.out.println("=".repeat(7) + "12" + "=".repeat(7));
 
         // Метод для подзадач. Удаление по идентификатору
         manager.deleteSubtaskByID(6);
         manager.deleteSubtaskByID(15);
-        System.out.println(manager.printSubtask());
-        System.out.println(manager.printEpic());
+        System.out.println(manager.getAllSubtasks());
+        System.out.println(manager.getAllEpics());
 
         System.out.println("=".repeat(7) + "13" + "=".repeat(7));
 
         // Метод для эпиков. Удаление по идентификатору
         manager.deleteEpicByID(4);
         manager.deleteEpicByID(15);
-        System.out.println(manager.printSubtask());
-        System.out.println(manager.printEpic());
+        System.out.println(manager.getAllSubtasks());
+        System.out.println(manager.getAllEpics());
 
         System.out.println("=".repeat(7) + "14" + "=".repeat(7));
 
         // Метод для эпиков. Получение списка всех подзадач определённого эпика.
-        System.out.println(manager.getListSubtaskByEpic(5));
+        System.out.println(manager.getSubtaskListByEpicId(5));
 
         System.out.println("=".repeat(7) + "15" + "=".repeat(7));
 
         // Метод для подзадач. Удаление всех подзадач.
-        manager.deleteAllSubtask();
-        System.out.println(manager.printSubtask());
+        manager.deleteAllSubtasks();
+        System.out.println(manager.getAllSubtasks());
 
         System.out.println("=".repeat(7) + "16" + "=".repeat(7));
 
         // Метод для эпиков. Удаление всех эпиков.
         manager.deleteAllEpic();
-        System.out.println(manager.printEpic());
+        System.out.println(manager.getAllEpics());
 
     }
 

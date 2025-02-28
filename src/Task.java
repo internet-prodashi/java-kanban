@@ -2,24 +2,27 @@ import java.util.Objects;
 
 public class Task {
 
-    public static final int ID_DEFAULT = -1;
     private int id;
     private String title;
     private String description;
     private Status status;
 
     public Task(String title, String description) {
-        this.id = ID_DEFAULT;
         this.title = title;
         this.description = description;
         this.status = Status.NEW;
+    }
+
+    public Task(String title, String description, Status status) {
+        this.title = title;
+        this.description = description;
+        this.status = status;
     }
 
     public Task(int id, String title, String description) {
         this.id = id;
         this.title = title;
         this.description = description;
-        this.status = Status.NEW;
     }
 
     public Task(int id, String title, String description, Status status) {
@@ -65,12 +68,12 @@ public class Task {
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         Task task = (Task) o;
-        return getId() == task.getId() && Objects.equals(getTitle(), task.getTitle()) && Objects.equals(getDescription(), task.getDescription()) && getStatus() == task.getStatus();
+        return getId() == task.getId();
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getTitle(), getDescription(), getStatus());
+        return Objects.hash(getId());
     }
 
     @Override
@@ -84,4 +87,3 @@ public class Task {
     }
 
 }
-
