@@ -4,7 +4,8 @@ public class Main {
 
     public static void main(String[] args) {
 
-        TaskManager manager = new TaskManager();
+        HistoryManager defaultHistoryManager = new InMemoryHistoryManager();
+        InMemoryTaskManager manager = new InMemoryTaskManager(defaultHistoryManager);
 
         // Метод для задач. Создание. Сам объект должен передаваться в качестве параметра.
         Task task1 = new Task("Задачи 1", "Подробное описание задачи 1");
@@ -23,6 +24,8 @@ public class Main {
 
         // Метод для задач. Получение по идентификатору
         System.out.println(manager.getTaskByID(2));
+        System.out.println(manager.getHistory());
+
 
         System.out.println("=".repeat(7) + "3" + "=".repeat(7));
 
@@ -133,6 +136,17 @@ public class Main {
         // Метод для эпиков. Удаление всех эпиков.
         manager.deleteAllEpic();
         System.out.println(manager.getAllEpics());
+
+        System.out.println("=".repeat(7) + "17" + "=".repeat(7));
+
+        // Тест истории просмотров
+        for (int i = 8; i < 19; i++) {
+            Task task = new Task("Задача " + i, "Подробное описание задачи " + i);
+            manager.addTask(task);
+            System.out.println(manager.getTaskByID(i));
+        }
+        System.out.println(manager.getHistory());
+
 
     }
 
