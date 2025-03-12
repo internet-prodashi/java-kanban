@@ -1,15 +1,14 @@
 public class Managers {
 
-    private TaskManager defaultTaskManager;
-    private HistoryManager defaultHistoryManager;
+    private static TaskManager defaultTaskManager;
+    private static HistoryManager defaultHistoryManager;
 
-    public Managers() {
-        this.defaultHistoryManager = new InMemoryHistoryManager();
-        this.defaultTaskManager = new InMemoryTaskManager(defaultHistoryManager);
+    public static TaskManager getDefault() {
+        return new InMemoryTaskManager();
     }
 
-    public TaskManager getDefaultTaskManager() {
-        return defaultTaskManager;
+    public static HistoryManager getDefaultHistory() {
+        return new InMemoryHistoryManager();
     }
 
 }

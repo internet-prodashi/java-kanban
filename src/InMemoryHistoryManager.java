@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-//import java.util.LinkedList;
 import java.util.List;
 
 public class InMemoryHistoryManager implements HistoryManager {
@@ -8,8 +7,6 @@ public class InMemoryHistoryManager implements HistoryManager {
     private final List<Task> history;
 
     public InMemoryHistoryManager() {
-        // Если часто вставляем и удаляем, правильно делать так, но в теории практикума этого не было...
-        //this.history = new LinkedList<>();
         this.history = new ArrayList<>();
     }
 
@@ -22,7 +19,7 @@ public class InMemoryHistoryManager implements HistoryManager {
     }
 
     @Override
-    public List<Task> getDefaultHistory() {
+    public List<Task> getHistory() {
         return List.copyOf(this.history);
     }
 

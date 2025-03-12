@@ -7,8 +7,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class InMemoryTaskManagerTest {
 
-    Managers managers = new Managers();
-    TaskManager taskManager = managers.getDefaultTaskManager();
+    TaskManager taskManager = Managers.getDefault();
 
     @BeforeEach
     void setUp() {

@@ -4,8 +4,7 @@ public class Main {
 
     public static void main(String[] args) {
 
-        HistoryManager defaultHistoryManager = new InMemoryHistoryManager();
-        InMemoryTaskManager manager = new InMemoryTaskManager(defaultHistoryManager);
+        InMemoryTaskManager manager = new InMemoryTaskManager();
 
         // Метод для задач. Создание. Сам объект должен передаваться в качестве параметра.
         Task task1 = new Task("Задачи 1", "Подробное описание задачи 1");
