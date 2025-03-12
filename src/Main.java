@@ -4,7 +4,7 @@ public class Main {
 
     public static void main(String[] args) {
 
-        InMemoryTaskManager manager = new InMemoryTaskManager();
+        TaskManager manager = Managers.getDefault();
 
         // Метод для задач. Создание. Сам объект должен передаваться в качестве параметра.
         Task task1 = new Task("Задачи 1", "Подробное описание задачи 1");
