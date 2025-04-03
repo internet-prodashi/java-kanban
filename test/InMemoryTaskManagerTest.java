@@ -76,9 +76,7 @@ class InMemoryTaskManagerTest {
 
         List<Task> history = taskManager.getHistory();
 
-        assertEquals(10, history.size(), "Неверное количество задач в истории");
-
-        Task firstHistoryTask = taskManager.getTaskByID(15);
+        Task firstHistoryTask = taskManager.getTaskByID(16);
         Epic fourHistoryTask = taskManager.getEpicByID(6);
         Subtask lastHistoryTask = taskManager.getSubtaskByID(12);
 
@@ -94,6 +92,42 @@ class InMemoryTaskManagerTest {
 
         assertNotEquals(lastHistoryTask.getTitle(), subtaskUpdate.getTitle(), "Неверное название подзадачи");
         assertNotEquals(lastHistoryTask.getDescription(), subtaskUpdate.getDescription(), "Неверное описание подзадачи");
+    }
+
+
+    @Test
+    void testRemoveTask() {
+        Task oneTask = new Task(1,"Задача 1", "Описание задачи 1");
+        Task twoTask = new Task(2,"Задача 2", "Описание задачи 2");
+        Task threeTask = new Task(3, "Задача 3", "Описание задачи 3");
+        Task fourTask = new Task(4, "Задача 4", "Описание задачи 4");
+        Task fiveTask = new Task(5, "Задача 5", "Описание задачи 5");
+
+        InMemoryHistoryManager newHistory = new InMemoryHistoryManager();
+        newHistory.add(oneTask);
+        newHistory.add(twoTask);
+        newHistory.add(threeTask);
+        newHistory.add(fourTask);
+        newHistory.add(fiveTask);
+
+        newHistory.remove(2);
+
+        List<Task> twoHistory = newHistory.getHistory();
+
+        assertEquals(4, twoHistory.size(), "Удаление из середины истории не работает!");
+        assertEquals(1, twoHistory.getFirst().getId(), "Первая задача в истории не верная!");
+        assertEquals(5, twoHistory.getLast().getId(), "Последняя задача в истории не верная!");
+        assertFalse(twoHistory.contains(twoTask), "Вторая задача из истории не удалена!");
+
+        newHistory.remove(1);
+        List<Task> treeHistory = newHistory.getHistory();
+        assertEquals(3, treeHistory.size(), "Удаление head (головы) из истории не работает!");
+        assertEquals(threeTask, treeHistory.getFirst(), "При удаление head (головы) из истории 3 элемент головой не стал!");
+
+        newHistory.remove(5);
+        List<Task> fourHistory = newHistory.getHistory();
+        assertEquals(2, fourHistory.size(), "Удаление tail (хвоста) из истории не работает!");
+        assertEquals(threeTask, fourHistory.getFirst(), "При удаление tail (хвоста) из истории 4 элемент хвостом не стал!");
     }
 
     @Test
