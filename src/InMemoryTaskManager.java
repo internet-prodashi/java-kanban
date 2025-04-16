@@ -17,6 +17,15 @@ public class InMemoryTaskManager implements TaskManager {
         this.subtasks = new HashMap<>();
     }
 
+    public InMemoryTaskManager(List<Task> tasksDB) {
+        this.historyManager = Managers.getDefaultHistory();
+        this.tasks = new HashMap<>();
+        this.epics = new HashMap<>();
+        this.subtasks = new HashMap<>();
+
+        loadTasksFromFile(tasksDB);
+    }
+
     // Все методы для задач
     @Override
     public void addTask(Task task) {
@@ -176,6 +185,14 @@ public class InMemoryTaskManager implements TaskManager {
         }
     }
 
+    public List<List<Task>> getAllTasksAllType() {
+        return List.of(
+                new ArrayList<>(tasks.values()),
+                new ArrayList<>(epics.values()),
+                new ArrayList<>(subtasks.values())
+        );
+    }
+
     // История задач
     @Override
     public List<Task> getHistory() {
@@ -213,6 +230,30 @@ public class InMemoryTaskManager implements TaskManager {
                 oldEpic.setStatus(Status.IN_PROGRESS);
             }
         }
+    }
+
+
+    private void loadTasksFromFile(List<Task> tasksDB) {
+        int maxId = 0;
+        for (Task task : tasksDB) {
+            if (task instanceof Epic epic) {
+                epics.put(epic.getId(), epic);
+                if (epic.getId() > maxId) {
+                    maxId = epic.getId();
+                }
+            } else if (task instanceof Subtask subtask) {
+                subtasks.put(subtask.getId(), subtask);
+                if (subtask.getId() > maxId) {
+                    maxId = subtask.getId();
+                }
+            } else if (task instanceof Task taskNew) {
+                tasks.put(taskNew.getId(), taskNew);
+                if (taskNew.getId() > maxId) {
+                    maxId = taskNew.getId();
+                }
+            }
+        }
+        newId = maxId + 1;
     }
 
 }

@@ -1,10 +1,12 @@
-
+import java.io.File;
 
 public class Main {
 
     public static void main(String[] args) {
 
-        TaskManager manager = Managers.getDefault();
+        //TaskManager manager = Managers.getDefault();
+        File file = new File(".", "tasksDB.csv");
+        TaskManager manager = Managers.getDefaultFile(file);
 
         // Метод для задач. Создание. Сам объект должен передаваться в качестве параметра.
         Task task1 = new Task("Задачи 1", "Подробное описание задачи 1");
@@ -145,6 +147,32 @@ public class Main {
             System.out.println(manager.getTaskByID(i));
         }
         System.out.println(manager.getHistory());
+
+        // Тест добавления и считывания с файла
+        System.out.println("=".repeat(7) + "18" + "=".repeat(7));
+        System.out.println("=".repeat(7) + "Добавил в файл" + "=".repeat(7));
+        Task task6 = new Task("Задача файл 1", "Описание задача файл 1");
+        manager.addTask(task6);
+        Task task7 = new Task("Задача файл 2", "Описание задача файл 2", Status.IN_PROGRESS);
+        manager.addTask(task7);
+        Epic epic5 = new Epic("Эпик файл 1", "Описание эпик файл 1");
+        manager.addEpic(epic5);
+        Subtask subtask5 = new Subtask("Заголовок подзадачи 1 эпика 2", "Подробное описание подзадачи 1 эпика 2", Status.IN_PROGRESS, 5);
+        manager.addSubtask(21, subtask5);
+        Subtask subtask6 = new Subtask("Заголовок подзадачи 2 эпика 2", "Подробное описание подзадачи 2 эпика 2", 5);
+        manager.addSubtask(21, subtask6);
+        System.out.println(manager.getAllTasksAllType());
+
+        System.out.println("=".repeat(7) + "Считал из файла" + "=".repeat(7));
+        TaskManager managerTwo = Managers.getDefaultLoadFromFile(file);
+        System.out.println(managerTwo.getAllTasksAllType());
+
+        // Тест добавления новой задачи и проверка уникального идентификатора
+        System.out.println("=".repeat(7) + "19" + "=".repeat(7));
+
+        Task task8 = new Task("Задача проверка id", "Описание задачи по проверке id");
+        managerTwo.addTask(task8);
+        System.out.println(managerTwo.getAllTasksAllType());
 
     }
 
