@@ -5,6 +5,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.io.IOException;
 
@@ -17,8 +18,8 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
         this.file = file;
     }
 
-    public FileBackedTaskManager(File file, List<Task> tasksDB) {
-        super(tasksDB);
+    public FileBackedTaskManager(File file, HashMap<Integer, Task> tasks, HashMap<Integer, Epic> epics, HashMap<Integer, Subtask> subtasks, int newId) {
+        super(tasks, epics, subtasks, newId);
         this.file = file;
     }
 
@@ -128,7 +129,30 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
             throw new ManagerSaveException("Файл не найден (не прочитан)", e);
         }
 
-        return new FileBackedTaskManager(file, tasksDB);
+        HashMap<Integer, Task> tasks = new HashMap<>();
+        HashMap<Integer, Epic> epics = new HashMap<>();
+        HashMap<Integer, Subtask> subtasks = new HashMap<>();
+        int newId = 0;
+        for (Task task : tasksDB) {
+            if (task instanceof Epic epic) {
+                epics.put(epic.getId(), epic);
+                if (epic.getId() > newId) {
+                    newId = epic.getId();
+                }
+            } else if (task instanceof Subtask subtask) {
+                subtasks.put(subtask.getId(), subtask);
+                if (subtask.getId() > newId) {
+                    newId = subtask.getId();
+                }
+            } else if (task instanceof Task taskNew) {
+                tasks.put(taskNew.getId(), taskNew);
+                if (taskNew.getId() > newId) {
+                    newId = taskNew.getId();
+                }
+            }
+        }
+        newId = newId + 1;
+        return new FileBackedTaskManager(file, tasks, epics, subtasks, newId);
     }
 
     private void save() {

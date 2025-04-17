@@ -17,13 +17,12 @@ public class InMemoryTaskManager implements TaskManager {
         this.subtasks = new HashMap<>();
     }
 
-    public InMemoryTaskManager(List<Task> tasksDB) {
+    public InMemoryTaskManager(HashMap<Integer, Task> tasks, HashMap<Integer, Epic> epics, HashMap<Integer, Subtask> subtasks, int newId) {
         this.historyManager = Managers.getDefaultHistory();
-        this.tasks = new HashMap<>();
-        this.epics = new HashMap<>();
-        this.subtasks = new HashMap<>();
-
-        loadTasksFromFile(tasksDB);
+        this.tasks = tasks;
+        this.epics = epics;
+        this.subtasks = subtasks;
+        this.newId = newId;
     }
 
     // Все методы для задач
@@ -230,30 +229,6 @@ public class InMemoryTaskManager implements TaskManager {
                 oldEpic.setStatus(Status.IN_PROGRESS);
             }
         }
-    }
-
-
-    private void loadTasksFromFile(List<Task> tasksDB) {
-        int maxId = 0;
-        for (Task task : tasksDB) {
-            if (task instanceof Epic epic) {
-                epics.put(epic.getId(), epic);
-                if (epic.getId() > maxId) {
-                    maxId = epic.getId();
-                }
-            } else if (task instanceof Subtask subtask) {
-                subtasks.put(subtask.getId(), subtask);
-                if (subtask.getId() > maxId) {
-                    maxId = subtask.getId();
-                }
-            } else if (task instanceof Task taskNew) {
-                tasks.put(taskNew.getId(), taskNew);
-                if (taskNew.getId() > maxId) {
-                    maxId = taskNew.getId();
-                }
-            }
-        }
-        newId = maxId + 1;
     }
 
 }
