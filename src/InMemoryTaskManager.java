@@ -17,6 +17,14 @@ public class InMemoryTaskManager implements TaskManager {
         this.subtasks = new HashMap<>();
     }
 
+    public InMemoryTaskManager(HashMap<Integer, Task> tasks, HashMap<Integer, Epic> epics, HashMap<Integer, Subtask> subtasks, int newId) {
+        this.historyManager = Managers.getDefaultHistory();
+        this.tasks = tasks;
+        this.epics = epics;
+        this.subtasks = subtasks;
+        this.newId = newId;
+    }
+
     // Все методы для задач
     @Override
     public void addTask(Task task) {
@@ -174,6 +182,14 @@ public class InMemoryTaskManager implements TaskManager {
             epic.setSubtaskIdList(oldSubtaskId);
             epic.setStatus(Status.NEW);
         }
+    }
+
+    public List<List<Task>> getAllTasksAllType() {
+        return List.of(
+                new ArrayList<>(tasks.values()),
+                new ArrayList<>(epics.values()),
+                new ArrayList<>(subtasks.values())
+        );
     }
 
     // История задач

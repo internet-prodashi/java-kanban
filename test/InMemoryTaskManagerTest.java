@@ -97,8 +97,8 @@ class InMemoryTaskManagerTest {
 
     @Test
     void testRemoveTask() {
-        Task oneTask = new Task(1,"Задача 1", "Описание задачи 1");
-        Task twoTask = new Task(2,"Задача 2", "Описание задачи 2");
+        Task oneTask = new Task(1, "Задача 1", "Описание задачи 1");
+        Task twoTask = new Task(2, "Задача 2", "Описание задачи 2");
         Task threeTask = new Task(3, "Задача 3", "Описание задачи 3");
         Task fourTask = new Task(4, "Задача 4", "Описание задачи 4");
         Task fiveTask = new Task(5, "Задача 5", "Описание задачи 5");

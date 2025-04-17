@@ -46,4 +46,6 @@ public interface TaskManager {
     // История задач
     List<Task> getHistory();
 
+    List<List<Task>> getAllTasksAllType();
+
 }
