@@ -39,7 +39,7 @@ public interface TaskManager {
 
     void updateSubtaskByID(Subtask subtask);
 
-    ArrayList<Subtask> getSubtaskListByEpicId(int epicId);
+    List<Subtask> getSubtaskListByEpicId(int epicId);
 
     void deleteAllSubtasks();
 
@@ -47,5 +47,7 @@ public interface TaskManager {
     List<Task> getHistory();
 
     List<List<Task>> getAllTasksAllType();
+
+    List<Task> getPrioritizedTasks();
 
 }
