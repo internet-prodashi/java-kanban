@@ -264,7 +264,7 @@ abstract class TaskManagerTest<T extends TaskManager> {
         assertEquals(expectedEndTime4, taskManagerTime.getEpicByID(2).getEndTime(), "После обновления подзадачи у эпика неверное время окончания");
 
         Subtask subtask5 = new Subtask("Подзадача 3 эпика 1", "описание подзадачи 3 эпика 1", 2);
-        taskManagerTime.updateSubtaskByID(subtask5);
+        taskManagerTime.addSubtask(2, subtask5);
 
         assertEquals(expectedStartTime4, taskManagerTime.getEpicByID(2).getStartTime(), "После добавления подзадачи без времени у эпика неверное время начала");
         assertEquals(expectedDuration4, taskManagerTime.getEpicByID(2).getDuration(), "После добавления подзадачи без времени у эпика неверная продолжительность");
@@ -297,7 +297,10 @@ abstract class TaskManagerTest<T extends TaskManager> {
         Subtask subtask1 = new Subtask("Подзадача 1 эпика 1", "описание подзадачи 1 эпика 1", 2, expectedStartTime2, expectedDuration2);
         taskManagerTime.addSubtask(2, subtask1);
         Subtask subtask2 = new Subtask("Подзадача 2 эпика 1", "описание подзадачи 2 эпика 1", 2, expectedStartTime3, expectedDuration3);
-        taskManagerTime.addSubtask(2, subtask2);
+        assertThrows(
+                TaskOverlapsException.class,
+                () -> taskManagerTime.addSubtask(2, subtask2), "Подзадача пересекается по времени"
+        );
         Subtask subtask3 = new Subtask("Подзадача 3 эпика 1", "описание подзадачи 3 эпика 1", 2, expectedStartTime4, expectedDuration4);
         taskManagerTime.addSubtask(2, subtask3);
 

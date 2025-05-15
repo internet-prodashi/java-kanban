@@ -50,4 +50,5 @@ public interface TaskManager {
 
     List<Task> getPrioritizedTasks();
 
+    void setNewId(int i);
 }
